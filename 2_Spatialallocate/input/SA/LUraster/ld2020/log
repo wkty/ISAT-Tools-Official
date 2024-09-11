@@ -1,0 +1,2 @@
+202012281151   0     6     0dls3804 LD2020 = resample(F:\LUCC\LUCC现状grid\LUCC-grid100m\ld2020, 1000)
+202102101109   0     0     0dls3804 copy F:\LUCC\LUCC现状grid\LUCC-grid1km\全国数据\ld2020 F:\LUCC\LUCC现状grid\LUCC-grid1km\全国数据\2020年\LD2020
