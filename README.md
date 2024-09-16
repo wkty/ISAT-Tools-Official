@@ -39,7 +39,7 @@ ISAT 排放清单处理工具
 1. 更灵活的空间分配功能
 
 本次更新重新整合了原有的“downscale”模块与“mapinv”模块，并生成新的“Spatialallocator”模块，使得用户可以更加灵活地完成区域排放清单降尺度以及本地排放清单空间分配的功能，以满足碳污排放清单网格化以及处理空气质量模型排放清单等需求。
-![img1](https://github.com/wkty/ISAT-Tools-Official/blob/main/appendix/%E5%9B%BE%E7%89%871.jpg)
+![img1](https://github.com/wkty/ISAT-Tools-Official/blob/main/appendix/update1/img1.jpg)
 <div align="center">
 图1 新功能示意图
 </div>
@@ -81,17 +81,17 @@ ISAT 排放清单处理工具
 
 1. 点源烟囱信息文件1秒内生成
 
-![img2](https://github.com/wkty/ISAT-Tools-Official/blob/main/appendix/%E5%9B%BE%E7%89%872.jpg)
+![img2](https://github.com/wkty/ISAT-Tools-Official/blob/main/appendix/update1/img2.jpg)
 
 （2）点源排放文件1分钟左右生成
 
-![img3](https://github.com/wkty/ISAT-Tools-Official/blob/main/appendix/%E5%9B%BE%E7%89%873.jpg)<br>
+![img3](https://github.com/wkty/ISAT-Tools-Official/blob/main/appendix/update1/img3.jpg)<br>
 三、全链条的清单处理流程
 
 <table><tbody><tr><th><p><strong>模块名称</strong></p></th><th><p><strong>模块功能</strong></p></th></tr><tr><td><p>Prepgrid</p></td><td><ul><li>用于研究区域网格化</li><li>可基于WRF/AQM嵌套规则获取多重网格参数</li><li>输出结果可支持WRF模型namelist.input配置</li></ul></td></tr><tr><td><p>Spatialallocator</p></td><td><ul><li>可用于本地清单分配，满足碳污融合清单网格化等工作</li><li>可用于区域清单分配，满足获取本地排放清单以外区域的网格化排放量，满足空气质量模型排放清单文件准备等使用场景</li></ul></td></tr><tr><td><p>Prepmodel</p></td><td><ul><li>可完成时间分配、物种分配、空间分配，生成CMAQ/CAMx可用的inline格式排放清单</li><li>灵活的物种分配文件格式：可满足用户在CMAQ模型中新增化学物种时，生成相应的排放清单文件</li></ul></td></tr></tbody></table>
 <div align="center">
 
-![img4](https://github.com/wkty/ISAT-Tools-Official/blob/main/appendix/%E5%9B%BE%E7%89%874.jpg)
+![img4](https://github.com/wkty/ISAT-Tools-Official/blob/main/appendix/update1/img4.jpg)
 
 欢迎关注“能-物-碳-污 Nexus”公众号
 
