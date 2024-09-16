@@ -1,20 +1,27 @@
 ![IAST Tool Image](https://github.com/wkty/ISAT-Tools-Official/blob/main/appendix/iast_img.png)
 <div align="center">
 
-# ISAT-Tools-Official
+# ISAT-Tools-Official  
 ISAT 排放清单处理工具
-
 
 </div>
 
+---
 
-（2024.09更新说明）
+**(2024.09 Update)**  
+**(2024.09 更新说明)**
+
+---
+
+## New Features  
+## 新特性
 
 <table>
   <tbody>
     <tr>
       <td>
         <ul>
+          <li>More flexible spatial allocation functionality</li>
           <li>更灵活的空间分配功能</li>
         </ul>
       </td>
@@ -22,13 +29,15 @@ ISAT 排放清单处理工具
     <tr>
       <td>
         <ul>
-          <li><a id="_Hlk177068140"></a>更快速的模型输出结果</li>
+          <li>Faster model output results</li>
+          <li>更快速的模型输出结果</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>
         <ul>
+          <li>Complete emission inventory processing chain</li>
           <li>全链条的清单处理流程</li>
         </ul>
       </td>
@@ -36,64 +45,102 @@ ISAT 排放清单处理工具
   </tbody>
 </table>
 
-1. 更灵活的空间分配功能
+---
 
-本次更新重新整合了原有的“downscale”模块与“mapinv”模块，并生成新的“Spatialallocator”模块，使得用户可以更加灵活地完成区域排放清单降尺度以及本地排放清单空间分配的功能，以满足碳污排放清单网格化以及处理空气质量模型排放清单等需求。
-![img1](https://github.com/wkty/ISAT-Tools-Official/blob/main/appendix/update1/img1.jpg)
-<div align="center">
-图1 新功能示意图
-</div>
+### 1. More Flexible Spatial Allocation Functionality  
+### 1. 更灵活的空间分配功能
 
-新模块支持栅格文件（包括tiff格式、asc格式、adf格式）、点文件（csv文件）、线矢量文件（shpfile文件）以及网格面积为空间分配因子的空间分配功能。由此，新模块的配置文件（par.ini）也分为区域划定（\[Domain\]）、空间分配因子参数（\[R_Proxy\]、\[P_Proxy\]、\[L_Proxy\]、\[A_Proxy\]），案例如下：
+This update integrates the original "downscale" and "mapinv" modules into a new "Spatialallocator" module, allowing more flexible regional emissions inventory downscaling and spatial allocation functions.  
+本次更新重新整合了原有的“downscale”模块与“mapinv”模块，并生成新的“Spatialallocator”模块，使得用户可以更加灵活地完成区域排放清单降尺度以及本地排放清单空间分配的功能。
+
+![img1](https://raw.githubusercontent.com/wkty/ISAT-Tools-Official/main/appendix/update1/img1.jpg)  
+<div align="center">Figure 1: New Feature Diagram  
+图1: 新功能示意图</div>
+
+The new module supports raster files (TIFF, ASC, ADF), point files (CSV), line vector files (SHP), and grid area as spatial allocation factors.  
+新模块支持栅格文件（包括 TIFF 格式、ASC 格式、ADF 格式）、点文件（CSV 文件）、线矢量文件（SHP 文件）以及网格面积为空间分配因子的空间分配功能。
+
+#### Example Configuration  
+#### 配置文件示例
 
 | **\[Domain\]** | **区域设定参数** |
 | --- | --- |
-| target:./input/domain/aqm_hb9km.shp | 目标网格矢量 |
-| region:./input/domain/Hebei.shp | 区域矢量文件 |
-| poplist:PM25,SO2,NOx,VOCs,CO,NH3,BC,OC,PMC | 物种列表 |
-| exclude_on:True | 是否开启区域抠除 |
-| region_ex:./input/domain/Hebei.shp | 抠除区域矢量 |
-| **\[R_Proxy\]** | **栅格文件参数** |
-| raster_on:True | 是否使用栅格文件 |
-| rasterpath:./input/SA/Popraster/ | 栅格文件路径 |
-| inputinv_r:./input/Emis/AR.csv | 排放清单文件 |
-| outname_r:AR | 输出文件标签 |
-| **\[P_Proxy\]** | **点文件参数** |
-| point_on:True | 是否使用点文件 |
-| pointpath:./input/SA/Pointcsv/neighborhood.csv | 点文件路径 |
-| key:weight | 点文件权重名称 |
-| inputinv_p:./input/Emis/CY.csv | 排放清单文件 |
-| outname_p:CY | 输出文件标签 |
-| **\[L_Proxy\]** | **线文件参数** |
-| line_on:NTrue | 是否使用线文件 |
-| linepath:./input/SA/Lineshp/nationalroads.shp | 线文件路径 |
-| lineref:./input/SA/Lineshp/lineweight.csv | 线文件权重 |
-| inputinv_l:./input/Emis/transport.csv | 排放清单文件 |
-| outname_l:LINE_TR | 输出文件标签 |
-| **\[A_Proxy\]** | **面积参数设定** |
-| area_on:NTrue | 是否使用面积插值 |
-| inputinv_a:./input/Emis/residential.csv | 清单文件 |
-| outname_a:AREA_RES | 输出文件标签 |
+| target:./input/domain/aqm_hb9km.shp | Target grid vector | 目标网格矢量 |
+| region:./input/domain/Hebei.shp | Regional vector file | 区域矢量文件 |
+| poplist:PM25,SO2,NOx,VOCs,CO,NH3,BC,OC,PMC | Species list | 物种列表 |
+| exclude_on:True | Exclude region on/off | 是否开启区域抠除 |
+| region_ex:./input/domain/Hebei.shp | Excluded region vector | 抠除区域矢量 |
 
-二、更快速的模型输出结果
+---
 
-本次更新重点优化了Prepmodel中的CMAQ/CAMx排放清单生成代码，避免了生成清单文件过程较慢的问题。如下面这个案例中，针对超过10余万个点源的17类点源排放源，准备模拟时长为760小时的排放清单文件耗时约2分钟，显著快于原程序耗时。
+### 2. Faster Model Output Results  
+### 2. 更快速的模型输出结果
 
-1. 点源烟囱信息文件1秒内生成
+The focus of this update is on optimizing the code for generating CMAQ/CAMx emission inventories in Prepmodel, significantly speeding up the process.  
+本次更新重点优化了 Prepmodel 中的 CMAQ/CAMx 排放清单生成代码，大幅提升了生成效率。
 
-![img2](https://github.com/wkty/ISAT-Tools-Official/blob/main/appendix/update1/img2.jpg)
+For example, generating an emission inventory for over 100,000 point sources for a simulation duration of 760 hours now takes about 2 minutes.  
+例如，针对超过 10 万个点源，准备 760 小时的排放清单文件，耗时约 2 分钟。
 
-（2）点源排放文件1分钟左右生成
+![img2](https://raw.githubusercontent.com/wkty/ISAT-Tools-Official/main/appendix/update1/img2.jpg)  
+<div align="center">Figure 2: Point Source Chimney Information File  
+图2: 点源烟囱信息文件</div>
 
-![img3](https://github.com/wkty/ISAT-Tools-Official/blob/main/appendix/update1/img3.jpg)<br>
-三、全链条的清单处理流程
+The point source emission files can be generated in about 1 minute.  
+点源排放文件生成时间约为 1 分钟。
 
-<table><tbody><tr><th><p><strong>模块名称</strong></p></th><th><p><strong>模块功能</strong></p></th></tr><tr><td><p>Prepgrid</p></td><td><ul><li>用于研究区域网格化</li><li>可基于WRF/AQM嵌套规则获取多重网格参数</li><li>输出结果可支持WRF模型namelist.input配置</li></ul></td></tr><tr><td><p>Spatialallocator</p></td><td><ul><li>可用于本地清单分配，满足碳污融合清单网格化等工作</li><li>可用于区域清单分配，满足获取本地排放清单以外区域的网格化排放量，满足空气质量模型排放清单文件准备等使用场景</li></ul></td></tr><tr><td><p>Prepmodel</p></td><td><ul><li>可完成时间分配、物种分配、空间分配，生成CMAQ/CAMx可用的inline格式排放清单</li><li>灵活的物种分配文件格式：可满足用户在CMAQ模型中新增化学物种时，生成相应的排放清单文件</li></ul></td></tr></tbody></table>
+![img3](https://raw.githubusercontent.com/wkty/ISAT-Tools-Official/main/appendix/update1/img3.jpg)
+
+---
+
+### 3. Complete Emission Inventory Processing Chain  
+### 3. 全链条的清单处理流程
+
+<table>
+  <tbody>
+    <tr>
+      <th><strong>Module Name</strong></th>
+      <th><strong>Module Function</strong></th>
+    </tr>
+    <tr>
+      <td><p>Prepgrid</p></td>
+      <td>
+        <ul>
+          <li>For grid preparation of study area</li>
+          <li>用于研究区域网格化</li>
+          <li>Supports WRF model namelist.input configuration</li>
+          <li>支持 WRF 模型 namelist.input 配置</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td><p>Spatialallocator</p></td>
+      <td>
+        <ul>
+          <li>For local and regional emissions inventory allocation</li>
+          <li>用于本地和区域排放清单分配</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td><p>Prepmodel</p></td>
+      <td>
+        <ul>
+          <li>Generates inline format emissions for CMAQ/CAMx</li>
+          <li>生成 CMAQ/CAMx 可用的 inline 格式排放清单</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
 <div align="center">
 
-![img4](https://github.com/wkty/ISAT-Tools-Official/blob/main/appendix/update1/img4.jpg)
+![img4](https://raw.githubusercontent.com/wkty/ISAT-Tools-Official/main/appendix/update1/img4.jpg)
 
+Follow WeChat Official Account: "Energy-Matter-Carbon-Nexus"  
 欢迎关注“能-物-碳-污 Nexus”公众号
 
-获取新版ISAT排放清单处理工具
 </div>
